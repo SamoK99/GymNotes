@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "304577482920",
+    "project_id": "gymnot",
+    "storage_bucket": "gymnot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304577482920:android:3112c74f7ffe8d63a9329d",
+        "android_client_info": {
+          "package_name": "com.gymit.gymnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304577482920-t0hj8v3hq4enmpd2vdd62g23qc43etai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBwTIQW7cavUWbM0gQKT0MrdcCqlui_WQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304577482920-t0hj8v3hq4enmpd2vdd62g23qc43etai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
