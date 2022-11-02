@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:gymnotes/services/auth/auth_exceptions.dart';
 import 'package:gymnotes/services/auth/auth_provider.dart';
 import 'package:gymnotes/services/auth/auth_user.dart';
