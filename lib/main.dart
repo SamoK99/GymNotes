@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnotes/constants/routes.dart';
 import 'package:gymnotes/services/auth/auth_service.dart';
 import 'package:gymnotes/views/login_view.dart';
-import 'package:gymnotes/views/notes/new_note_view.dart';
+import 'package:gymnotes/views/notes/create_update_note_view.dart';
 import 'package:gymnotes/views/notes/notes_view.dart';
 import 'package:gymnotes/views/register_view.dart';
 import 'package:gymnotes/views/verify_email_view.dart';
@@ -21,7 +21,7 @@ void main() {
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
-        newNoteRoute: (context) => const NewNoteView(),
+        createOrUpdateNoteRoute: (context) => const CreateUpdateNoteView(),
       },
     ),
   );
