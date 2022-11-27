@@ -1,4 +1,4 @@
-import 'dart:async';
+/* import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:gymnotes/extensions/list/filter.dart';
 import 'package:gymnotes/services/crud/crud_exceptions.dart';
@@ -350,4 +350,4 @@ const createNoteTable = '''CREATE TABLE IF NOT EXISTS "note" (
         "is_synced_with_cloud"	INTEGER NOT NULL DEFAULT 0,
         FOREIGN KEY("user_id") REFERENCES "user"("id"),
         PRIMARY KEY("id" AUTOINCREMENT)
-      );''';
+      );'''; */
