@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gymnotes/services/auth/auth_service.dart';
 import 'package:gymnotes/services/auth/bloc/auth_bloc.dart';
 import 'package:gymnotes/services/auth/bloc/auth_event.dart';
-import '../constants/routes.dart';
 
 class VerifyEmailView extends StatefulWidget {
   const VerifyEmailView({super.key});
@@ -35,7 +33,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                 const AuthEventLogOut()
               );
             },
-            child: const Text('Restart'),
+            child: const Text('Back to Login'),
           )
         ]),
     );
