@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnotes/services/cloud/cloud_note.dart';
+import 'package:intl/intl.dart';
 import '../../utilities/dialogs/delete_dialog.dart';
 
 typedef NoteCallback = void Function(CloudNote note);
@@ -18,16 +19,30 @@ class NotesListView extends StatelessWidget {
       itemCount: notes.length,
       itemBuilder: (context, index) {
         final note = notes.elementAt(index);
+        String formattedDate = DateFormat('dd.MMM yyyy - ').format(note.createdAt);
+        String formattedTime = DateFormat.Hm().format(note.createdAt);
         return ListTile(
           onTap: (){
             onTap(note);
           },
-          title: Text(
-            note.text,
+          title: RichText(
+            text: TextSpan(
+              style: const TextStyle(
+                fontSize: 15.0,
+                color: Colors.black
+              ),
+              children: <TextSpan>[
+                TextSpan(text: formattedDate, style: const TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(text: formattedTime)
+              ]
+            )
+          ),
+          /* title: Text(
+            formattedDate,
             maxLines: 1,
             softWrap: true,
             overflow: TextOverflow.ellipsis,
-          ),
+          ), */
           trailing: IconButton(
             onPressed: () async{
               final shouldDelete = await showDeleteDialog(context);

@@ -6,15 +6,18 @@ import 'package:gymnotes/services/cloud/cloud_storage_constants.dart';
 class CloudNote {
   final String documentId;
   final String ownerUserId;
+  final DateTime createdAt;
   final String text;
   const CloudNote({
     required this.documentId,
     required this.ownerUserId,
+    required this.createdAt,
     required this.text,
   });
 
  CloudNote.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) :
   documentId = snapshot.id,
   ownerUserId = snapshot.data()[ownerUserIdFieldName],
+  createdAt = (snapshot.data()[dateFieldName] as Timestamp).toDate(),
   text = snapshot.data()[textFieldName] as String;
 }
