@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gymnotes/services/auth/auth_service.dart';
+import 'package:gymnotes/services/cloud/cloud_exercise.dart';
 import 'package:gymnotes/utilities/dialogs/cannot_share_empty_note_dialog.dart';
 import 'package:gymnotes/utilities/generics/get_arguments.dart';
 import 'package:gymnotes/services/cloud/cloud_note.dart';
 import 'package:gymnotes/services/cloud/firebase_cloud_storage.dart';
+import 'package:gymnotes/views/notes/exercise_view.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CreateUpdateNoteView extends StatefulWidget {
@@ -90,6 +92,7 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         title: const Text('New Note'),
         actions: [
@@ -112,19 +115,55 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
           switch(snapshot.connectionState){
             case ConnectionState.done:
               _setupTextControllerListener();
-              return TextField(
+              final thisNoteOwner = _note!.ownerUserId;
+              final thisNoteId = _note!.documentId;
+              final getExercises = _notesService.getExercises(ownerUserId: thisNoteOwner, parentNoteId: thisNoteId);
+              //final getSets = _notesService.getSets(ownerUserId: thisNoteOwner, parentNoteId: thisNoteId, parentExerciseId: );
+              return StreamBuilder(
+                stream: getExercises,
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState){
+                    case ConnectionState.waiting:
+                    case ConnectionState.active:
+                      if (snapshot.hasData){
+                        final allExercises = snapshot.data as Iterable<CloudExercise>;
+                        if(allExercises.isNotEmpty){
+                          return ExerciseView(exercises: allExercises, notesService: _notesService,);
+                        }
+                        else{
+                          return const Center(child: Text('No exercises in this session'));
+                        }
+                      }else{
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    default:
+                      return const Center(child: CircularProgressIndicator());
+                  }
+                },
+              );
+              /* return TextField(
                 controller: _textController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 decoration: const InputDecoration(
                   hintText: 'Start typing your note...'
                 ),
-              );
+              ); */
             default:
               return const CircularProgressIndicator();
           }
         },
       ),
+      floatingActionButton: 
+        Padding(
+          padding: const EdgeInsets.only(bottom: 0),
+          child: FloatingActionButton.extended(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            onPressed: () {},
+            label: const Text('Add Exercise'),
+            icon: const Icon(Icons.add)
+          ),
+        )
     );
   }
 }

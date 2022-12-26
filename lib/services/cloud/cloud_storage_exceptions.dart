@@ -7,6 +7,7 @@ class CouldNotCreateNoteException extends CloudStorageException {}
 
 // R
 class CouldNotGetAllNoteException extends CloudStorageException {}
+class CouldNotGetExercisesException extends CloudStorageException {}
 
 // U
 class CouldNotUpdateNoteException extends CloudStorageException {}
