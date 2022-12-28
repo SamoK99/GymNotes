@@ -16,6 +16,7 @@ class NotesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      padding: const EdgeInsets.only(bottom: 75),
       itemCount: notes.length,
       itemBuilder: (context, index) {
         final note = notes.elementAt(index);
@@ -37,6 +38,10 @@ class NotesListView extends StatelessWidget {
               ]
             )
           ),
+          subtitle: Text(
+            note.text,
+            overflow: TextOverflow.ellipsis,
+          ),
           /* title: Text(
             formattedDate,
             maxLines: 1,
@@ -44,6 +49,7 @@ class NotesListView extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ), */
           trailing: IconButton(
+            tooltip: 'Delete',
             onPressed: () async{
               final shouldDelete = await showDeleteDialog(context);
               if (shouldDelete){

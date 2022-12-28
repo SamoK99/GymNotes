@@ -1,1 +1,3 @@
-enum MenuAction{logout}
+enum MenuActionLogout{logout}
+enum MenuActionDelete{delete}
+enum MenuActionEdit{edit}

@@ -9,12 +9,14 @@ class CloudExercise {
   final String exerciseName;
   final String bodyCategory;
   final String ownerUserId;
+  final DateTime createdAt;
   const CloudExercise({
     required this.documentId,
     required this.parentNoteId,
     required this.exerciseName,
     required this.bodyCategory,
-    required this.ownerUserId
+    required this.ownerUserId,
+    required this.createdAt
   });
 
  CloudExercise.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) :
@@ -22,5 +24,6 @@ class CloudExercise {
   parentNoteId = snapshot.data()[parentNoteIdFieldName],
   exerciseName = snapshot.data()[exerciseFieldName] as String,
   bodyCategory = snapshot.data()[bodyCategoryFieldName] as String,
-  ownerUserId = snapshot.data()[ownerUserIdFieldName];
+  ownerUserId = snapshot.data()[ownerUserIdFieldName],
+  createdAt = (snapshot.data()[dateFieldName] as Timestamp).toDate();
 }
