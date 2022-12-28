@@ -12,7 +12,7 @@ typedef ExerciseCallback = void Function(CloudExercise exercise);
 String get userId => AuthService.firebase().currentUser!.id;
 int reps = 1;
 double weight = 60;
-Color darkPurple = const Color.fromRGBO(24, 22, 33, 1);
+Color sheetColor = const Color.fromRGBO(85, 88, 95, 1);
 
 class ExerciseView extends StatelessWidget {
 
@@ -49,7 +49,7 @@ class ExerciseView extends StatelessWidget {
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15),
                       ),
-                      color: darkPurple,
+                      color: sheetColor,
                     ),
                     padding: const EdgeInsets.all(20),
                     child: Column(
@@ -196,7 +196,7 @@ class ExerciseView extends StatelessWidget {
                           ),
                           child: Text(
                             "ADD SET",
-                            style: TextStyle(color: darkPurple),
+                            style: TextStyle(color: sheetColor),
                           ),
                         )
                       ],
@@ -333,7 +333,7 @@ class ExerciseView extends StatelessWidget {
               
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(37, 34, 53, 1),
+                      backgroundColor: sheetColor,
                       minimumSize: const Size.fromHeight(35)),
                   onPressed: () {
                     showBottomSheet();

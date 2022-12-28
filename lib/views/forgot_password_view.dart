@@ -46,37 +46,81 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Forgot Password')
+          title: const Center(child: Text('Reset Password'))
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Text('If you forgot your password, simply enter your email and we will send you a password reset link'),
-                TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  autocorrect: false,
-                  autofocus: true,
-                  controller: _controller,
-                  decoration: const InputDecoration(
-                    hintText: 'Your email address...',
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const Text(
+                    'To reset a forgotten password, enter your email adress.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500
+                    ),
                   ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    final email = _controller.text;
-                    context.read<AuthBloc>().add(AuthEventForgotPassword(email: email));
-                  },
-                  child: const Text('Send me password reset')
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(const AuthEventLogOut());
-                  },
-                  child: const Text('Back to login page')
-                ),
-              ],
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 20, top: 5),
+                    child: Text(
+                      'Be sure to check your spam folder for the password reset!',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontStyle: FontStyle.italic
+                      ),
+                    ),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    autocorrect: false,
+                    autofocus: true,
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                      hintText: 'Your email adress...',
+                      suffixIcon: const Icon(Icons.email)
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 10),
+                    child: SizedBox(
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(14)),
+                          ),
+                        ),
+                        onPressed: () {
+                          final email = _controller.text;
+                          context.read<AuthBloc>().add(AuthEventForgotPassword(email: email));
+                        },
+                        child: const Text(
+                          'Send me password reset',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600
+                          ),
+                        )
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      context.read<AuthBloc>().add(const AuthEventLogOut());
+                    },
+                    child: const Text(
+                      'Back to Login page',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600
+                      ),
+                    )
+                  ),
+                ],
+              ),
             ),
           ),
         ),

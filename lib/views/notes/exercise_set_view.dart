@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gymnotes/services/cloud/cloud_set.dart';
-import '../../utilities/dialogs/delete_dialog.dart';
 
 typedef SetCallback = void Function(CloudSet set);
 

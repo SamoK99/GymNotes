@@ -23,10 +23,17 @@ void main() {
       MaterialApp(
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
-        title: 'Flutter Demo',
+        title: 'GymNotes',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Colors.orange[400],
+            secondary: Colors.orange[400]
+          ),
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Color.fromRGBO(85, 88, 95, 1),
+            selectionHandleColor: Color.fromRGBO(85, 88, 95, 1)
+          )
         ),
         home: BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(FirebaseAuthProvider()),

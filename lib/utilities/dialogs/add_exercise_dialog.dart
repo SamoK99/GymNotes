@@ -95,7 +95,7 @@ Future<T?> showAddExerciseDialog<T>({
                       else{
                         service.addExercise(ownerUserId: userId, parentNoteId: noteId, exerciseName: exerciseNameText, bodyCategory: selectedValue, createdAt: date );
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('$exerciseNameText was added'), backgroundColor: Colors.green[600] ),
+                          SnackBar(content: Text('$exerciseNameText added'), backgroundColor: Colors.green[600] ),
                         );
                         Navigator.of(context).pop();
                         controller.clear();

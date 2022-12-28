@@ -34,12 +34,6 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text('Your Workouts'),
         actions: [
-          IconButton(
-            onPressed: (){
-              Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
-            },
-            icon: const Icon(Icons.add)
-          ),
           PopupMenuButton<MenuActionLogout>( 
             onSelected: (value) async{
               switch(value){

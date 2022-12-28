@@ -47,60 +47,108 @@ class _LoginViewState extends State<LoginView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Login'),
+          title: const Center(child: Text('GymNotes')),
           //backgroundColor: const Color.fromRGBO(252, 163, 17, 1.0),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Text('Please log in to your account in order to access the application.'),
-                TextField(
-                  controller: _email,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Text(
+                      'Please log in to your account to access GymNotes.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
                   ),
-                ),
-                TextField(
-                  controller: _password,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
+                  TextField(
+                    controller: _email,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                      labelText: 'Email Adress',
+                      suffixIcon: const Icon(Icons.email)
+                    ),
                   ),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    final email = _email.text;
-                    final password = _password.text;
-                    context
-                        .read<AuthBloc>()
-                        .add(AuthEventLogin(email, password));
-                  },
-                  child: const Text('Login')
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(
-                      const AuthEventForgotPassword()
-                    );
-                  },
-                  child: const Text('I forgot my password')
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(
-                      const AuthEventShouldRegister()
-                    );
-                  },
-                  child: const Text('Not registered yet? Register here!')
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 14),
+                    child: TextField(
+                      controller: _password,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                        labelText: 'Password',
+                        suffixIcon: const Icon(Icons.lock)
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 10),
+                    child: SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(14)),
+                          ),
+                        ),
+                        onPressed: () async {
+                          final email = _email.text;
+                          final password = _password.text;
+                          context
+                              .read<AuthBloc>()
+                              .add(AuthEventLogin(email, password));
+                        },
+                        child: const Text(
+                          'Login',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600
+                          ),
+                        )
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      context.read<AuthBloc>().add(
+                        const AuthEventShouldRegister()
+                      );
+                    },
+                    child: const Text(
+                      'Register here',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600
+                      ),
+                    )
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      context.read<AuthBloc>().add(
+                        const AuthEventForgotPassword()
+                      );
+                    },
+                    child: const Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        color: Colors.grey
+                      ),
+                    )
+                  ),
+                ],
+              ),
             ),
           ),
         ),
