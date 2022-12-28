@@ -234,6 +234,8 @@ class ExerciseView extends StatelessWidget {
                     transform: Matrix4.translationValues(0, 10, 0),
                     child: PopupMenuButton( 
                       icon: const Icon(Icons.more_horiz,),
+                      color: Colors.transparent,
+                      elevation: 0,
                       onSelected: (value) async{
                         switch(value){
                           case MenuActionDelete.delete:
@@ -247,15 +249,40 @@ class ExerciseView extends StatelessWidget {
                         }
                       },
                       itemBuilder: (context) {
-                        return const [
-                          
-                          PopupMenuItem<MenuActionEdit>(
+                        return [
+                          const PopupMenuItem<MenuActionEdit>(
                             value: MenuActionEdit.edit,
-                            child: Text('Edit'),
+                            child: ListTile(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(topLeft: Radius.circular(4), topRight: Radius.circular(4))
+                              ),
+                              tileColor: Color.fromRGBO(252, 163, 17, 1),
+                              iconColor: Colors.white,
+                              title: Text(
+                                'Edit',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                            ),
                           ),
                           PopupMenuItem<MenuActionDelete>(
                             value: MenuActionDelete.delete, 
-                            child: Text('Delete')
+                            child: ListTile(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(4), bottomRight: Radius.circular(4))
+                              ),
+                              tileColor: Colors.red[700],
+                              iconColor: Colors.white,
+                              title: const Text(
+                                'Delete',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                            ),
                           ),
                         ];
                       }

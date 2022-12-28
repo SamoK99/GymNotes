@@ -124,7 +124,7 @@ class FirebaseCloudStorage {
     return allExercises;
   }
 
-  Future<void> updatedExercise({
+  Future<void> updateExercise({
     required String documentId,
     required String exerciseName,
     required String bodyCategory

@@ -5,14 +5,13 @@ import 'package:gymnotes/utilities/Lists/body_part_menu_items_list.dart';
 
 typedef DialogOptionBuilder<T> = Map<String, T?> Function();
 
-Future<T?> showAddExerciseDialog<T>({
+Future<T?> showEditExerciseDialog<T>({
   required BuildContext context,
   required String title,
   required TextEditingController controller,
   required String selectedValue,
   required FirebaseCloudStorage service,
-  required String userId,
-  required String noteId,
+  required String exerciseId
 }){
   return showDialog<T>(
     context: context,
@@ -85,7 +84,6 @@ Future<T?> showAddExerciseDialog<T>({
                     ),
                     onPressed: () {
                       final exerciseNameText = controller.text;
-                      final date = DateTime.now();
                       if (exerciseNameText.isEmpty || exerciseNameText == ''){
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: const Text('Exercise requires a name'), backgroundColor: Colors.red[700] ),
@@ -93,15 +91,15 @@ Future<T?> showAddExerciseDialog<T>({
                         Navigator.of(context).pop();
                       }
                       else{
-                        service.addExercise(ownerUserId: userId, parentNoteId: noteId, exerciseName: exerciseNameText, bodyCategory: selectedValue, createdAt: date );
+                        service.updateExercise(documentId: exerciseId, exerciseName: exerciseNameText, bodyCategory: selectedValue );
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('$exerciseNameText was added'), backgroundColor: Colors.green[600] ),
+                          SnackBar(content: Text('Edited to $exerciseNameText'), backgroundColor: Colors.green[600] ),
                         );
                         Navigator.of(context).pop();
                         controller.clear();
                       }
                     },
-                    child: const Text('Add')
+                    child: const Text('Edit')
                   ),
                 ),
               ),

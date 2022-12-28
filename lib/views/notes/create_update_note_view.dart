@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gymnotes/services/auth/auth_service.dart';
 import 'package:gymnotes/services/cloud/cloud_exercise.dart';
-import 'package:gymnotes/utilities/Lists/body_part_menu_items_list.dart';
+import 'package:gymnotes/utilities/dialogs/add_exercise_dialog.dart';
+import 'package:gymnotes/utilities/dialogs/edit_exercise_dialog.dart';
 import 'package:gymnotes/utilities/generics/get_arguments.dart';
 import 'package:gymnotes/services/cloud/cloud_note.dart';
 import 'package:gymnotes/services/cloud/firebase_cloud_storage.dart';
@@ -64,104 +65,6 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     final newNote = await _notesService.createNewNote(ownerUserId: userId, createdAt: date);
     _note = newNote;
     return newNote;
-  }
-
-  Future addExercise(){
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        insetPadding: const EdgeInsets.all(10),
-        title: const Center(child: Text('Add Exercise')),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-        content: Builder(
-          builder: (context) {
-            var width = MediaQuery.of(context).size.width;
-            var height = MediaQuery.of(context).size.height;
-            return SizedBox(
-              width: width - 100,
-              height: height - 680,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  TextField(
-                    controller: exerciseNameController,
-                    autofocus: true,
-                    inputFormatters: [LengthLimitingTextInputFormatter(30),],
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                      labelText: 'Exercise Name',
-                      suffixIcon: const Icon(Icons.fitness_center)
-                    ),
-                  ),
-                  DropdownButtonFormField(
-                    isExpanded: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                      labelText: 'Muscle Category'
-                    ),
-                    value: selectedValue,
-                    items: dropdownItems, 
-                    onChanged: (String? newValue) {
-                      selectedValue = newValue!;
-                    },
-                  )
-                ],
-              ),
-            );
-          }
-        ),
-        actionsAlignment: MainAxisAlignment.spaceBetween,
-        actionsPadding: const EdgeInsets.all(0),
-        actions: [
-          Row(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: 50,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Close')
-                  ),
-                ),
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), topLeft: Radius.circular(4)),
-                      ),
-                    ),
-                    onPressed: () {
-                      final exerciseNameText = exerciseNameController.text;
-                      final date = DateTime.now();
-                      if (exerciseNameText.isEmpty || exerciseNameText == ''){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: const Text('Exercise requires a name'), backgroundColor: Colors.red[700] ),
-                        );
-                        Navigator.of(context).pop();
-                      }
-                      else{
-                        _notesService.addExercise(ownerUserId: userId, parentNoteId: thisNoteId, exerciseName: exerciseNameText, bodyCategory: selectedValue, createdAt: date );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('$exerciseNameText was added'), backgroundColor: Colors.green[600] ),
-                        );
-                        Navigator.of(context).pop();
-                        exerciseNameController.clear();
-                      }
-                    },
-                    child: const Text('Add')
-                  ),
-                ),
-              ),
-            ],
-          ) 
-        ],
-      )
-    );
   }
 
   void _saveNoteIfNotEmpty() async{
@@ -232,8 +135,16 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
                                 onDeleteExercise: (exercise) async{
                                   await _notesService.deleteExercise(documentId: exercise.documentId, ownerUserId: userId);
                                 },
-                                editExercise: (exercise){
-                                  
+                                editExercise: (exercise) async{
+                                  exerciseNameController.text = exercise.exerciseName;
+                                  await showEditExerciseDialog(
+                                    context: context,
+                                    title: 'Edit Exercise',
+                                    controller: exerciseNameController,
+                                    selectedValue: selectedValue,
+                                    service: _notesService,
+                                    exerciseId: exercise.documentId
+                                  );
                                 },
                               );
                             }
@@ -260,7 +171,15 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
               child: FloatingActionButton.extended(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 onPressed: () {
-                  addExercise();
+                  showAddExerciseDialog(
+                    context: context,
+                    title: 'Add Exercise',
+                    controller: exerciseNameController,
+                    selectedValue: selectedValue,
+                    service: _notesService,
+                    userId: userId,
+                    noteId: thisNoteId
+                  );
                 },
                 label: const Text('Add Exercise'),
                 icon: const Icon(Icons.add)
