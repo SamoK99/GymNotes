@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:gymnotes/services/cloud/firebase_cloud_storage.dart';
 import 'package:gymnotes/utilities/Lists/body_part_menu_items_list.dart';
 
-typedef DialogOptionBuilder<T> = Map<String, T?> Function();
-
 Future<T?> showAddExerciseDialog<T>({
   required BuildContext context,
   required String title,
@@ -69,6 +67,7 @@ Future<T?> showAddExerciseDialog<T>({
                   child: TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
+                      controller.clear();
                     },
                     child: const Text('Close')
                   ),

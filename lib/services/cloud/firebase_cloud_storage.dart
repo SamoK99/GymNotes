@@ -75,20 +75,6 @@ class FirebaseCloudStorage {
     );
   }
 
-  /* Future<Iterable<CloudExercise>> getExercise({required String parentNoteId}) async{
-    try{
-      return await exercises.where(
-        parentNoteIdFieldName, isEqualTo: parentNoteId
-      )
-      .get()
-      .then(
-        (value) => value.docs.map((doc) => CloudExercise.fromSnapshot(doc))
-      );
-    } catch (e){
-      throw CouldNotGetExercisesException();
-    }
-  } */
-
   // Exercise CRUD
   Future<CloudExercise> addExercise({
     required String ownerUserId,
@@ -114,6 +100,7 @@ class FirebaseCloudStorage {
       createdAt: createdAt
     );
   }
+  
   Stream<Iterable<CloudExercise>> getExercises({required String ownerUserId, required String parentNoteId}) {
     final allExercises = exercises
       .where(ownerUserIdFieldName, isEqualTo: ownerUserId)

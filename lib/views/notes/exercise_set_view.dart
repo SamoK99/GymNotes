@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnotes/services/cloud/cloud_set.dart';
+import 'package:gymnotes/utilities/dialogs/delete_dialog.dart';
 
 typedef SetCallback = void Function(CloudSet set);
 
@@ -7,7 +8,6 @@ class ExerciseSetView extends StatelessWidget {
 
   final Iterable<CloudSet> sets;
   final SetCallback onDeleteSet;
-  //final ExerciseCallback onTap;
 
   const ExerciseSetView({super.key, required this.sets, required this.onDeleteSet});
 
@@ -38,8 +38,11 @@ class ExerciseSetView extends StatelessWidget {
                 child: IconButton(
                   splashRadius: 24,
                   tooltip: 'Delete',
-                  onPressed: () {
-                    onDeleteSet(set);
+                  onPressed: () async {
+                    final shouldDelete = await showDeleteDialog(context);
+                    if (shouldDelete){
+                      onDeleteSet(set);
+                    }
                   },
                    icon: const Icon(Icons.delete, color: Color.fromARGB(255, 99, 96, 96),)
                 ),

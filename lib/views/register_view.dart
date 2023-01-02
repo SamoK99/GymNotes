@@ -131,9 +131,6 @@ class _RegisterViewState extends State<RegisterView> {
                                   context.read<AuthBloc>().add(
                                     AuthEventRegister(email, password)
                                   );
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Processing...'), backgroundColor: Colors.grey ),
-                                  );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: const Text('You must confirm your password correctly'), backgroundColor: Colors.red[700] ),

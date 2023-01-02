@@ -76,6 +76,7 @@ class ExerciseView extends StatelessWidget {
                               },
                               enableHapticFeedback: true,
                               child: IconButton(
+                                iconSize: 38,
                                 onPressed: () {
                                   if(reps > 0){
                                     setState(() {
@@ -105,6 +106,7 @@ class ExerciseView extends StatelessWidget {
                               },
                               enableHapticFeedback: true,
                               child: IconButton(
+                                iconSize: 38,
                                 onPressed: () {
                                   if(reps < 500){
                                     setState(() {
@@ -132,14 +134,15 @@ class ExerciseView extends StatelessWidget {
                           children: [
                             HoldDetector(
                               onHold: () {
-                                if(weight >= 5){
+                                if(weight >= 10){
                                   setState(() {
-                                    weight -= 5;
+                                    weight -= 10;
                                   });
                                 }
                               },
                               enableHapticFeedback: true,
                               child: IconButton(
+                                iconSize: 38,
                                 onPressed: () {
                                   if(weight > 0){
                                     setState(() {
@@ -161,16 +164,17 @@ class ExerciseView extends StatelessWidget {
                             ),
                             HoldDetector(
                               onHold: () {
-                                if(weight < 1000){
+                                if(weight <= 990){
                                   setState(() {
-                                    weight += 5;
+                                    weight += 10;
                                   });
                                 }
                               },
                               enableHapticFeedback: true,
                               child: IconButton(
+                                iconSize: 38,
                                 onPressed: () {
-                                  if(weight < 1000){
+                                  if(weight <= 999.5){
                                     setState(() {
                                       weight += 0.5;
                                     });
@@ -188,7 +192,14 @@ class ExerciseView extends StatelessWidget {
                           fillColor: Colors.white,
                           onPressed: () {
                             final date = DateTime.now();
-                            notesService.addSet(ownerUserId: userId, parentNoteId: exercise.parentNoteId, parentExerciseId: exercise.documentId, setReps: reps, setWeight: weight, createdAt: date);
+                            notesService.addSet(
+                              ownerUserId: userId,
+                              parentNoteId: exercise.parentNoteId,
+                              parentExerciseId: exercise.documentId,
+                              setReps: reps,
+                              setWeight: weight,
+                              createdAt: date
+                            );
                             Navigator.pop(context);
                           },
                           shape: RoundedRectangleBorder(

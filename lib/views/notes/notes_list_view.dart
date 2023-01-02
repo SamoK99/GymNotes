@@ -42,12 +42,6 @@ class NotesListView extends StatelessWidget {
             note.text,
             overflow: TextOverflow.ellipsis,
           ),
-          /* title: Text(
-            formattedDate,
-            maxLines: 1,
-            softWrap: true,
-            overflow: TextOverflow.ellipsis,
-          ), */
           trailing: IconButton(
             tooltip: 'Delete',
             onPressed: () async{

@@ -11,8 +11,10 @@ void main(){
     });
 
     test('Cannot log out if not initialized',() async{
-      await provider.initialize();
-      expect(provider.isInitialized, true);
+      expect(
+        provider.logOut(),
+        throwsA(const TypeMatcher<NotInitializedException>()),
+      );
     });
 
     test('Should be able to be initialized',() async{
@@ -24,7 +26,7 @@ void main(){
       expect(provider.currentUser, null);
     });
 
-    test('Should be able to be initialize in less than 2 seconds',
+    test('Should be able to be initialized in less than 2 seconds',
       () async{
         await provider.initialize();
         expect(provider.isInitialized, true);

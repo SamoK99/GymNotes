@@ -17,6 +17,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.black,
+  ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (value) => 
     runApp(
